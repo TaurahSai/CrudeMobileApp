@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrudeMobileApp.AddOrderPage"
+             Title="AddOrder">
+
+
+    <StackLayout Padding="20">
+        <Label Text="Add New Order" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="0,20,0,10" />
+
+        <Frame BorderColor="LightGray" CornerRadius="10" Padding="20" HasShadow="True" Margin="0,20,0,20">
+            <StackLayout Spacing="15">
+                <Picker x:Name="CustomerPicker" Title="Select Customer" />
+                <Picker x:Name="ProductPicker" Title="Select Product" />
+                <Entry x:Name="QuantityEntry" Placeholder="Enter Quantity" Keyboard="Numeric" />
+
+                <Button Text="Save Order" Clicked="OnSaveOrderClicked" BackgroundColor="CornflowerBlue" TextColor="White" CornerRadius="10"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

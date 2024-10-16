@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrudeMobileApp.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EvenFrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+            </Style>
+            <Style x:Key="OddFrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Label Text="Order List" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="10"/>
+
+        <ListView x:Name="OrderListView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="10" Margin="5" CornerRadius="10" HasShadow="True">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter TargetName="frame" Property="Style" Value="{StaticResource EvenFrameStyle}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter TargetName="frame" Property="Style" Value="{StaticResource OddFrameStyle}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid x:Name="frame">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <Label Text="Tiers:" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" Margin="0,5,0,0"/>
+                                <Label Text="{Binding Customer.CompanyName}" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0"/>
+                                
+                                <Label Text="No Commande:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,5,0,0"/>
+                                <Label Text="{Binding OrderId}" Grid.Row="1" Grid.Column="1" Margin="10,5,0,0"/>
+
+                                <Label Text="Ville:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" Margin="0,5,0,0"/>
+                                <Label Text="{Binding ShippingCity}" Grid.Row="2" Grid.Column="1" Margin="10,5,0,0"/>
+
+                                <Label Text="C.P:" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" Margin="0,5,0,0"/>
+                                <Label Text="{Binding ShippingPostalCode}" Grid.Row="3" Grid.Column="1" Margin="10,5,0,0"/>
+
+                                <Label Text="Date:" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" Margin="0,5,0,0"/>
+                                <Label Text="{Binding OrderDate, StringFormat='{0:MM/dd/yyyy}'}" Grid.Row="4" Grid.Column="1" Margin="10,5,0,0"/>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Add Order" Clicked="OnAddOrderClicked" Margin="10" BackgroundColor="CornflowerBlue" TextColor="White"/>
+    </StackLayout>
+</ContentPage>
