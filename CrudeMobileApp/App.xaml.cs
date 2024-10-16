@@ -14,7 +14,7 @@ namespace CrudeMobileApp
 
             // Ensure the database is created without disposing the context manually
             using (var db = new AppDbContext(new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlite($"Filename={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "app.db")}")
+                .UseSqlite($"Filename={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "app1.db")}")
                 .Options))
             {
                 db.Database.EnsureCreated();

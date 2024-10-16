@@ -1,45 +1,24 @@
 ﻿using CrudeMobileApp.Model;
-using Microsoft.EntityFrameworkCore;
+using CrudeMobileApp.Repositories;
 
 namespace CrudeMobileApp.Shared
 {
-    public class DataService
+    public class DataService(IOrderRepository orderRepository, IGenericRepository<Customer> customerRepository, IGenericRepository<Product> productRepository, IDetailOrderRepository detailOrderRepository)
     {
-        private readonly AppDbContext _context;
-
-        public DataService(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<List<Order>> GetOrdersAsync()
-        {
-            return await _context.Orders.Include(o => o.Customer).ToListAsync();
-        }
+        public async Task<List<Order>> GetOrdersWithCustomerAsync() => (await orderRepository.GetOrdersWithCustomersAsync()).ToList();
 
         public async Task AddOrderAsync(Order order, List<DetailOrder> orderDetails)
         {
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
-
-            // Ensure the OrderId is set for each OrderDetail
+            await orderRepository.AddAsync(order);
             foreach (var detail in orderDetails)
             {
                 detail.OrderId = order.OrderId;
             }
-
-            await _context.DetailOrders.AddRangeAsync(orderDetails);
-            await _context.SaveChangesAsync();
+            await detailOrderRepository.AddRangeAsync(orderDetails);
         }
 
-        public async Task<List<Customer>> GetCustomersAsync()
-        {
-            return await _context.Customers.ToListAsync();
-        }
+        public async Task<List<Customer>> GetCustomersAsync() => (await customerRepository.GetAllAsync()).ToList();
 
-        public async Task<List<Product>> GetProductsAsync()
-        {
-            return await _context.Products.ToListAsync();
-        }
+        public async Task<List<Product>> GetProductsAsync() => (await productRepository.GetAllAsync()).ToList();
     }
 }

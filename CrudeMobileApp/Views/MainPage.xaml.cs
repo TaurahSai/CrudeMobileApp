@@ -18,7 +18,7 @@ namespace CrudeMobileApp
         }
         private async void LoadOrders()
         {
-            OrderListView.ItemsSource = await _dataService.GetOrdersAsync();
+            OrderListView.ItemsSource = await _dataService.GetOrdersWithCustomerAsync();
         }
 
         private async void OnAddOrderClicked(object sender, EventArgs e)

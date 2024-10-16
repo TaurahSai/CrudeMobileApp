@@ -1,4 +1,5 @@
-﻿using CrudeMobileApp.Shared;
+﻿using CrudeMobileApp.Repositories;
+using CrudeMobileApp.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -20,8 +21,13 @@ namespace CrudeMobileApp
             // Register AppDbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlite($"Filename={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "app.db")}");
+                options.UseSqlite($"Filename={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "app1.db")}");
             });
+
+            // Register Repositories
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IDetailOrderRepository, DetailOrderRepository>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddSingleton<DataService>();
 
 #if DEBUG

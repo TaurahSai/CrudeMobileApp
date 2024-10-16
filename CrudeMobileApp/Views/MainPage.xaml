@@ -53,7 +53,7 @@
 
                                 <Label Text="Tiers:" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding Customer.CompanyName}" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0"/>
-                                
+
                                 <Label Text="No Commande:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding OrderId}" Grid.Row="1" Grid.Column="1" Margin="10,5,0,0"/>
 
