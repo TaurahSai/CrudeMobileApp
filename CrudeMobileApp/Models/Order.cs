@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using CrudeMobileApp.Models;
+using SQLite;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

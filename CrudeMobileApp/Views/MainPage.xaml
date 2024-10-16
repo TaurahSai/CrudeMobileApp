@@ -15,7 +15,7 @@
     </ContentPage.Resources>
 
     <StackLayout>
-        <Label Text="Order List" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="10"/>
+        <Label Text="Commande" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="10"/>
 
         <ListView x:Name="OrderListView" HasUnevenRows="True">
             <ListView.ItemTemplate>

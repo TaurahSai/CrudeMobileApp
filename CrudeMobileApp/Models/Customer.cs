@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CrudeMobileApp.Model
+namespace CrudeMobileApp.Models
 {
     public class Customer
     {
