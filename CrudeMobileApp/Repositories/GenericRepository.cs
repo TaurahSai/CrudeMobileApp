@@ -1,5 +1,4 @@
-﻿using CrudeMobileApp.Shared;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CrudeMobileApp.Repositories
 {

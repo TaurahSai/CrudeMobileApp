@@ -1,14 +1,18 @@
-﻿using CrudeMobileApp.Shared;
+﻿using CrudeMobileApp.Services;
 
 namespace CrudeMobileApp
 {
     public partial class MainPage : ContentPage
     {
-        private readonly DataService _dataService;
-        public MainPage(DataService dataService)
+        private readonly ProductService _productService;
+        private readonly CustomerService _customerService;
+        private readonly OrderService _orderService;
+        public MainPage(OrderService orderService, CustomerService customerService, ProductService productService)
         {
             InitializeComponent();
-            _dataService = dataService;
+            _orderService = orderService;
+            _productService = productService;
+            _customerService = customerService;
             LoadOrders();
         }
         protected override void OnAppearing()
@@ -18,13 +22,12 @@ namespace CrudeMobileApp
         }
         private async void LoadOrders()
         {
-            OrderListView.ItemsSource = await _dataService.GetOrdersWithCustomerAsync();
+            OrderListView.ItemsSource = await _orderService.GetOrdersWithCustomerAsync();
         }
 
         private async void OnAddOrderClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddOrderPage(_dataService));
-
+            await Navigation.PushAsync(new AddOrderPage(_customerService, _productService, _orderService));
         }
     }
 }

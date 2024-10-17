@@ -2,7 +2,7 @@
 using CrudeMobileApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrudeMobileApp.Shared
+namespace CrudeMobileApp
 {
     public class AppDbContext : DbContext
     {
@@ -19,9 +19,10 @@ namespace CrudeMobileApp.Shared
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite($"Filename={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "app.db")}");
+                optionsBuilder.UseSqlite($"Filename={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "app1.db")}");
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Seed Customers

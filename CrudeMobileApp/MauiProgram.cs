@@ -1,5 +1,5 @@
 ﻿using CrudeMobileApp.Repositories;
-using CrudeMobileApp.Shared;
+using CrudeMobileApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -28,10 +28,13 @@ namespace CrudeMobileApp
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IDetailOrderRepository, DetailOrderRepository>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddSingleton<DataService>();
+            builder.Services.AddScoped<OrderService>();
+            builder.Services.AddScoped<CustomerService>();
+            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<DetailOrderService>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

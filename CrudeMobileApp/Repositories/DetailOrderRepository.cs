@@ -1,5 +1,4 @@
 ﻿using CrudeMobileApp.Model;
-using CrudeMobileApp.Shared;
 
 namespace CrudeMobileApp.Repositories;
 

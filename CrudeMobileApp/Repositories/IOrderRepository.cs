@@ -6,5 +6,4 @@ namespace CrudeMobileApp.Repositories
     {
         Task<IEnumerable<Order>> GetOrdersWithCustomersAsync();
     }
-
 }

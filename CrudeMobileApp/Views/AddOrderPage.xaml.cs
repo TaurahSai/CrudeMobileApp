@@ -1,21 +1,25 @@
 using CrudeMobileApp.Model;
-using CrudeMobileApp.Shared;
+using CrudeMobileApp.Services;
 
 namespace CrudeMobileApp;
 
 public partial class AddOrderPage : ContentPage
 {
-    private readonly DataService _dataService;
-    public AddOrderPage(DataService dataService)
+    private readonly ProductService _productService;
+    private readonly CustomerService _customerService;
+    private readonly OrderService _orderService;
+    public AddOrderPage(CustomerService customerService, ProductService productService, OrderService orderService)
     {
         InitializeComponent();
-        _dataService = dataService;
+        _customerService = customerService;
+        _productService = productService;
+        _orderService = orderService;
         LoadCustomersAndProducts();
     }
     private async void LoadCustomersAndProducts()
     {
-        var customers = await _dataService.GetCustomersAsync();
-        var products = await _dataService.GetProductsAsync();
+        var customers = await _customerService.GetCustomersAsync();
+        var products = await _productService.GetProductsAsync();
 
         foreach (var customer in customers)
         {
@@ -35,8 +39,8 @@ public partial class AddOrderPage : ContentPage
         var selectedProductName = ProductPicker.SelectedItem.ToString();
         var quantity = int.Parse(QuantityEntry.Text);
 
-        var selectedCustomer = await _dataService.GetCustomersAsync();
-        var selectedProduct = await _dataService.GetProductsAsync();
+        var selectedCustomer = await _customerService.GetCustomersAsync();
+        var selectedProduct = await _productService.GetProductsAsync();
 
         var customer = selectedCustomer.FirstOrDefault(c => c.CompanyName == selectedCustomerName);
         var product = selectedProduct.FirstOrDefault(p => p.ProductName == selectedProductName);
@@ -57,15 +61,14 @@ public partial class AddOrderPage : ContentPage
 
         var orderDetails = new List<DetailOrder>
         {
-            new DetailOrder
-            {
+            new() {
                 OrderId = order.OrderId,
                 ProductId = product.ProductId,
                 Quantity = quantity
             }
         };
 
-        await _dataService.AddOrderAsync(order, orderDetails);
+        await _orderService.AddOrderAsync(order, orderDetails);
         await Navigation.PopAsync();
     }
 }
