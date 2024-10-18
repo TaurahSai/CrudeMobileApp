@@ -2,7 +2,7 @@
 
 namespace CrudeMobileApp.Repositories;
 
-public interface IDetailOrderRepository
+public interface IDetailOrderRepository :IGenericRepository<DetailOrder>
 {
     Task AddRangeAsync(IEnumerable<DetailOrder> orderDetails);
 }
