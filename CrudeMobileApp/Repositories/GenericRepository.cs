@@ -11,12 +11,12 @@ namespace CrudeMobileApp.Repositories
             _context = context;
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(string id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
         }
@@ -33,7 +33,7 @@ namespace CrudeMobileApp.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsyncById(int id)
+        public async Task DeleteAsyncById(string id)
         {
             var entity = await GetByIdAsync(id);
             _context.Set<T>().Remove(entity);

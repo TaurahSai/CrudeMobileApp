@@ -16,34 +16,46 @@ public partial class AddOrderPage : ContentPage
         _orderService = orderService;
         LoadCustomersAndProducts();
     }
+
+    private readonly Dictionary<int, string> _customerIds = [];
+    private readonly Dictionary<int, string> _productIds = [];
+
     private async void LoadCustomersAndProducts()
     {
-        var customers = await _customerService.GetCustomersAsync();
-        var products = await _productService.GetProductsAsync();
+        var customers = await _customerService.GetAllAsync();
+        var products = await _productService.GetAllAsync();
 
-        foreach (var customer in customers)
+        CustomerPicker.Items.Clear();
+        ProductPicker.Items.Clear();
+
+        for (int i = 0; i < customers.Count; i++)
         {
-            CustomerPicker.Items.Add(customer.CompanyName);
+            CustomerPicker.Items.Add(customers[i].CompanyName);
+            _customerIds[i] = customers[i].CustomerId; // Map index to CustomerId
         }
 
-        foreach (var product in products)
+        for (int i = 0; i < products.Count; i++)
         {
-            ProductPicker.Items.Add(product.ProductName);
-
+            ProductPicker.Items.Add(products[i].ProductName);
+            _productIds[i] = products[i].ProductId; // Map index to ProductId
         }
     }
 
+
     private async void OnSaveOrderClicked(object sender, EventArgs e)
     {
-        var selectedCustomerName = CustomerPicker.SelectedItem.ToString();
-        var selectedProductName = ProductPicker.SelectedItem.ToString();
+        if (CustomerPicker.SelectedIndex == -1 || ProductPicker.SelectedIndex == -1)
+        {
+            await DisplayAlert("Error", "Please select a customer and a product.", "OK");
+            return;
+        }
+
+        var selectedCustomerId = _customerIds[CustomerPicker.SelectedIndex];
+        var selectedProductId = _productIds[ProductPicker.SelectedIndex];
         var quantity = int.Parse(QuantityEntry.Text);
 
-        var selectedCustomer = await _customerService.GetCustomersAsync();
-        var selectedProduct = await _productService.GetProductsAsync();
-
-        var customer = selectedCustomer.FirstOrDefault(c => c.CompanyName == selectedCustomerName);
-        var product = selectedProduct.FirstOrDefault(p => p.ProductName == selectedProductName);
+        var customer = await _customerService.GetByIdAsync(selectedCustomerId);
+        var product = await _productService.GetByIdAsync(selectedProductId);
 
         var order = new Order
         {

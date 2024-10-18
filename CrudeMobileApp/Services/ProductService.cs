@@ -3,10 +3,7 @@ using CrudeMobileApp.Repositories;
 
 namespace CrudeMobileApp.Services
 {
-    public class ProductService(IGenericRepository<Product> productRepository)
+    public class ProductService(IGenericRepository<Product> repository) : GenericService<Product>(repository)
     {
-        private readonly IGenericRepository<Product> _productRepository = productRepository;
-
-        public async Task<List<Product>> GetProductsAsync() => (await _productRepository.GetAllAsync()).ToList();
     }
 }

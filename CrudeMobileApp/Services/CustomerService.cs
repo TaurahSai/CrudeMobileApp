@@ -3,9 +3,8 @@ using CrudeMobileApp.Repositories;
 
 namespace CrudeMobileApp.Services;
 
-public class CustomerService(IGenericRepository<Customer> customerRepository)
+public class CustomerService(IGenericRepository<Customer> repository) : GenericService<Customer>(repository)
 {
-    private readonly IGenericRepository<Customer> _customerRepository = customerRepository;
-
-    public async Task<List<Customer>> GetCustomersAsync() => (await _customerRepository.GetAllAsync()).ToList();
 }
+
+
