@@ -10,11 +10,23 @@
             <Style x:Key="OddFrameStyle" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
             </Style>
+            <Style x:Key="DeleteButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Red"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="WidthRequest" Value="80"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout>
+    <StackLayout Padding="10" Spacing="10">
         <Label Text="Commande" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Margin="10"/>
-        <ListView x:Name="OrderListView" HasUnevenRows="True">
+
+        <ListView x:Name="OrderListView" HasUnevenRows="True" BackgroundColor="WhiteSmoke">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -45,24 +57,31 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Text="Tiers:" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding Customer.CompanyName}" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0"/>
+
                                 <Label Text="No Commande:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding OrderId}" Grid.Row="1" Grid.Column="1" Margin="10,5,0,0"/>
+
                                 <Label Text="Ville:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding ShippingCity}" Grid.Row="2" Grid.Column="1" Margin="10,5,0,0"/>
+
                                 <Label Text="C.P:" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding ShippingPostalCode}" Grid.Row="3" Grid.Column="1" Margin="10,5,0,0"/>
+
                                 <Label Text="Date:" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" Margin="0,5,0,0"/>
                                 <Label Text="{Binding OrderDate, StringFormat='{0:MM/dd/yyyy}'}" Grid.Row="4" Grid.Column="1" Margin="10,5,0,0"/>
-                                <Button Text="Delete" Command="{Binding Path=BindingContext.DeleteOrderCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="Red" TextColor="White" CornerRadius="10"/>
+
+                                <Button Text="Delete" Command="{Binding Path=BindingContext.DeleteOrderCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" Style="{StaticResource DeleteButtonStyle}"/>
                             </Grid>
                         </Border>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add Order" Clicked="OnAddOrderClicked" Margin="10" BackgroundColor="CornflowerBlue" TextColor="White"/>
+
+        <Button Text="Add Order" Clicked="OnAddOrderClicked" Margin="10" BackgroundColor="CornflowerBlue" TextColor="White" CornerRadius="10"/>
     </StackLayout>
 </ContentPage>

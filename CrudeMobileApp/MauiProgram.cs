@@ -1,6 +1,4 @@
-﻿using CrudeMobileApp.Model;
-using CrudeMobileApp.Models;
-using CrudeMobileApp.Repositories;
+﻿using CrudeMobileApp.Repositories;
 using CrudeMobileApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
